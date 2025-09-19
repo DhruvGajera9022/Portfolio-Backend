@@ -1,11 +1,9 @@
-const bcrypt = require("bcryptjs");
-const crypto = require("crypto");
 const User = require("../models/User.model");
 const { generateToken } = require("../config/jwt.config");
 const logger = require("../utils/logger.util");
 const { successResponse, errorResponse } = require("../utils/response.util");
 const { HTTP_STATUS, MESSAGES } = require("../../shared/constants");
-const { sendResetEmail } = require("../utils/emailService.util");
+const { hashPassword, comparePassword } = require("../utils/helpers.util");
 
 /**
  * Register a new user
@@ -24,7 +22,7 @@ exports.register = async (req, res) => {
             });
         }
 
-        const hashedPassword = await bcrypt.hash(password, parseInt(process.env.SALT, 10));
+        const hashedPassword = await hashPassword(password);
 
         const user = await User.create({ firstName, lastName, email, password: hashedPassword, role });
         logger.info(`[REGISTER] User created: ${user._id}`);
@@ -60,7 +58,7 @@ exports.login = async (req, res) => {
             return errorResponse(res, { statusCode: HTTP_STATUS.UNAUTHORIZED, message: MESSAGES.INVALID_CREDENTIALS });
         }
 
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await comparePassword(password, user.password);
         if (!isMatch) {
             logger.warn(`[LOGIN] Invalid password attempt for user: ${user._id}`);
             return errorResponse(res, { statusCode: HTTP_STATUS.UNAUTHORIZED, message: MESSAGES.INVALID_CREDENTIALS });
@@ -99,7 +97,7 @@ exports.resetPassword = async (req, res) => {
             });
         }
 
-        user.password = await bcrypt.hash(password, parseInt(process.env.SALT, 10));
+        user.password = await hashPassword(password);
         await user.save();
 
         logger.info(`[RESET PASSWORD] Password updated successfully for: ${user._id}`);
