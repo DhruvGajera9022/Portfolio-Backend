@@ -2,20 +2,18 @@ require("dotenv").config();
 
 const express = require("express");
 const helmet = require("helmet");
-const cors = require("cors");
-const rateLimit = require("express-rate-limit");
 const morgan = require("morgan");
 
-
 const errorHandler = require("./middleware/errorHandler.middleware");
-const { limiter } = require("./middleware/rateLimiter.middleware");
 const corsMiddleware = require("./config/cors.config");
-const logger = require("./utils/logger.util");
+const setupSwagger = require("./config/swagger.config");
+const { limiter } = require("./middleware/rateLimiter.middleware");
 const { errorResponse } = require("./utils/response.util");
 const { HTTP_STATUS } = require("../shared/constants")
-const setupSwagger = require("./config/swagger.config");
 
 const authRoutes = require("./routes/auth.route");
+const profileRoutes = require("./routes/profile.route");
+
 
 const app = express();
 
@@ -45,6 +43,7 @@ app.get("/", (req, res) => res.send("API Running"));
 
 // ------------------- ROUTES ------------------- //
 app.use("/api/auth", authRoutes);
+app.use("/api/profile", profileRoutes);
 
 // Setup Swagger
 setupSwagger(app);
