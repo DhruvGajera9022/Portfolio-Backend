@@ -10,17 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      mongo:
-        image: mongo:6
-        ports:
-          - 27017:27017
-        options: >-
-          --health-cmd "mongosh --eval 'db.adminCommand(\"ping\")'" 
-          --health-interval 10s 
-          --health-timeout 5s 
-          --health-retries 5
-
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
@@ -39,6 +28,17 @@ jobs:
 
   unit-tests:
     runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo:6
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --eval 'db.adminCommand(\"ping\")'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     env:
       MONGO_URI_TEST: ${{ secrets.MONGO_URI_TEST }}
