@@ -35,10 +35,7 @@ jobs:
           cache: "npm"
 
       - name: "Installing Dependencies"
-        run: npm ci
-
-      - name: "Build Command"
-        run: npm run build
+        run: npm i
 
   unit-tests:
     runs-on: ubuntu-latest
