@@ -2,6 +2,7 @@ const User = require("../models/User.model");
 const logger = require("../utils/logger.util");
 const { successResponse, errorResponse } = require("../utils/response.util");
 const { HTTP_STATUS, MESSAGES } = require("../../shared/constants");
+const { uploadFile } = require("../utils/cloudinaryService.util");
 
 /**
  * Get Profile data
@@ -52,21 +53,53 @@ exports.updateProfile = async (req, res) => {
         const allowedFields = [
             "firstName",
             "lastName",
-            "avatar",
             "phone",
             "location",
             "title",
             "bio",
-            "resume",
             "socialLinks",
         ];
 
-        // Filter request body to include only allowed fields
+        if (!req.body) {
+            logger.error(`[UPDATE PROFILE] req.body is undefined. Check middleware setup.`);
+            return errorResponse(res, {
+                statusCode: HTTP_STATUS.BAD_REQUEST,
+                message: "Invalid request body",
+            });
+        }
+
+
         const updates = {};
+
+        // Handle JSON body updates
         for (const field of allowedFields) {
             if (req.body[field] !== undefined) {
                 updates[field] = req.body[field];
             }
+        }
+
+        // Handle avatar upload
+        if (req.files?.avatar?.[0]) {
+            const uploadedAvatar = await uploadFile(req.files.avatar[0].path, "avatars");
+            updates.avatar = uploadedAvatar;
+        }
+
+        // Handle resume upload
+        if (req.files?.resume?.[0]) {
+            const uploadedResume = await uploadFile(req.files.resume[0].path, "resumes");
+            updates.resume = {
+                ...uploadedResume,
+                fileName: req.files.resume[0].originalname,
+                uploadedAt: new Date(),
+            };
+        }
+
+        if (Object.keys(updates).length === 0) {
+            logger.warn(`[UPDATE PROFILE] No valid fields provided. userId: ${userId}`);
+            return errorResponse(res, {
+                statusCode: HTTP_STATUS.BAD_REQUEST,
+                message: "No valid fields to update",
+            });
         }
 
         if (Object.keys(updates).length === 0) {
@@ -79,9 +112,9 @@ exports.updateProfile = async (req, res) => {
 
         // Perform update
         const updatedUser = await User.findByIdAndUpdate(userId, updates, {
-            new: true, // return updated doc
-            runValidators: true, // apply schema validations
-            select: "-password -__v", // exclude sensitive fields
+            new: true,
+            runValidators: true,
+            select: "-password -__v",
         });
 
         if (!updatedUser) {
