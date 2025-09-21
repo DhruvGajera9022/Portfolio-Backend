@@ -58,6 +58,10 @@ const updateProfileSchema = Joi.object({
             "string.uri": "Instagram must be a valid URL",
         }),
     }),
+
+    // Dummy fields to allow file uploads without breaking
+    avatar: Joi.any(),
+    resume: Joi.any(),
 }).min(1).messages({
     "object.min": "At least one field must be provided for update",
 });
