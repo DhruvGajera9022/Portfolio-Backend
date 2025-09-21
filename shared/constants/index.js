@@ -16,21 +16,32 @@ const HTTP_STATUS = {
  * Common API Messages
  */
 const MESSAGES = {
+    // General
     SUCCESS: "Success",
     SERVER_ERROR: "Internal server error",
-    DUPLICATE_ENTRY: "Email already exists",
-    INVALID_CREDENTIALS: "Invalid credentials",
+    DUPLICATE_ENTRY: "Entry already exists",
     NOT_FOUND: "Resource not found",
     UNAUTHORIZED: "Unauthorized access",
     FORBIDDEN: "Forbidden",
     TOKEN_EXPIRED: "Token expired or invalid",
+
+    // User / Auth
+    INVALID_CREDENTIALS: "Invalid credentials",
     PASSWORD_RESET_SENT: "Password reset token sent to email",
     PASSWORD_RESET_SUCCESS: "Password reset successfully",
     REGISTER_SUCCESS: "User registered successfully",
     LOGIN_SUCCESS: "Login successful",
     USER_NOT_FOUND: "User not found",
     INVALID_TOKEN: "Invalid or expired token",
-    USER_PROFILE_FETCHED: "User profile fetch successfully",
+    USER_PROFILE_FETCHED: "User profile fetched successfully",
+
+    // Skills
+    SKILL_FETCH_SUCCESS: "Skill fetched successfully",
+    SKILLS_FETCH_SUCCESS: "Skills fetched successfully",
+    SKILL_CREATE_SUCCESS: "Skill created successfully",
+    SKILL_UPDATE_SUCCESS: "Skill updated successfully",
+    SKILL_DELETE_SUCCESS: "Skill deleted successfully",
+    SKILL_NOT_FOUND: "Skill not found",
 };
 
 /**
