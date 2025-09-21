@@ -24,10 +24,16 @@ router.get("/", authMiddleware, profileController.me);
 router.put(
     "/",
     authMiddleware,
-    upload.fields([{ name: "avatar", maxCount: 1 }, { name: "resume", maxCount: 1 }]),
+    upload.fields([
+        { name: "avatar", maxCount: 1 },
+        { name: "resume", maxCount: 1 },
+    ]),
     (req, res, next) => {
-        // If no body fields but files exist → skip Joi validation
-        if (Object.keys(req.body).length === 0 && req.files && Object.keys(req.files).length > 0) {
+        if (
+            Object.keys(req.body).length === 0 &&
+            req.files &&
+            Object.keys(req.files).length > 0
+        ) {
             return next();
         }
         return validateRequest(updateProfileSchema)(req, res, next);
