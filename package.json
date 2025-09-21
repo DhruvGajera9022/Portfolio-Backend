@@ -8,8 +8,6 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "lint": "eslint . --ext .js",
-    "lint:fix": "eslint . --ext .js --fix",
     "test": "jest --runInBand --detectOpenHandles"
   },
   "keywords": [],

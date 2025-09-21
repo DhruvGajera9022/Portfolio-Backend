@@ -30,6 +30,7 @@ const MESSAGES = {
     LOGIN_SUCCESS: "Login successful",
     USER_NOT_FOUND: "User not found",
     INVALID_TOKEN: "Invalid or expired token",
+    USER_PROFILE_FETCHED: "User profile fetch successfully",
 };
 
 /**
