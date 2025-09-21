@@ -21,9 +21,19 @@ router.get("/", authMiddleware, profileController.me);
  * @desc    Update Profile data
  * @access  Private
  */
-router.put("/", authMiddleware, upload.fields([
-    { name: "avatar", maxCount: 1 },
-    { name: "resume", maxCount: 1 },
-]), validateRequest(updateProfileSchema), profileController.updateProfile);
+router.put(
+    "/",
+    authMiddleware,
+    upload.fields([{ name: "avatar", maxCount: 1 }, { name: "resume", maxCount: 1 }]),
+    (req, res, next) => {
+        // If no body fields but files exist → skip Joi validation
+        if (Object.keys(req.body).length === 0 && req.files && Object.keys(req.files).length > 0) {
+            return next();
+        }
+        return validateRequest(updateProfileSchema)(req, res, next);
+    },
+    profileController.updateProfile
+);
+
 
 module.exports = router;
