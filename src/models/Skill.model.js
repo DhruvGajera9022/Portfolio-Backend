@@ -103,6 +103,5 @@ const SkillSchema = new mongoose.Schema(
     { timestamps: true } // createdAt, updatedAt
 );
 
-const Skill = mongoose.model("Skill", SkillSchema);
 
-module.exports = Skill;
+module.exports = mongoose.model("Skill", SkillSchema);
