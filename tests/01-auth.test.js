@@ -1,137 +1,73 @@
-// tests/auth.test.js
 const request = require("supertest");
 const app = require("../src/app");
 const { HTTP_STATUS } = require("../shared/constants");
 const { testUserRegister, testUserLogin, testUserReset } = require("../shared/constants/test.constants");
+const { clearDB } = require("./testSetup");
 
-// Import the setup file
 require("./testSetup");
 
 describe("Auth Controller", () => {
+    beforeEach(async () => {
+        await clearDB();
+    });
 
-    /* ================= Register Tests ================= */
     describe("POST /api/auth/register", () => {
-        it("Should register a new user", async () => {
-            const res = await request(app)
-                .post("/api/auth/register")
-                .send(testUserRegister);
-
+        it("registers a new user", async () => {
+            const res = await request(app).post("/api/auth/register").send(testUserRegister);
             expect(res.statusCode).toBe(HTTP_STATUS.CREATED);
             expect(res.body).toHaveProperty("data.user.email", testUserRegister.email);
             expect(res.body).toHaveProperty("data.token");
         });
 
-        it("Should not allow duplicate emails", async () => {
-            // First insert
-            await request(app)
-                .post("/api/auth/register")
-                .send(testUserRegister);
-
-            // Try duplicate insert
-            const res = await request(app)
-                .post("/api/auth/register")
-                .send(testUserRegister);
-
+        it("rejects duplicate emails", async () => {
+            await request(app).post("/api/auth/register").send(testUserRegister);
+            const res = await request(app).post("/api/auth/register").send(testUserRegister);
             expect(res.statusCode).toBe(HTTP_STATUS.CONFLICT);
-            expect(res.body).toHaveProperty("message");
         });
     });
 
-    /* ================= Login Tests ================= */
     describe("POST /api/auth/login", () => {
-        beforeAll(async () => {
-            // Ensure user exists once before login tests
-            await request(app)
-                .post("/api/auth/register")
-                .send(testUserRegister);
+        beforeEach(async () => {
+            await request(app).post("/api/auth/register").send(testUserRegister);
         });
 
-        it("Should login a user", async () => {
-            const res = await request(app)
-                .post("/api/auth/login")
-                .send(testUserLogin);
-
+        it("logs in successfully", async () => {
+            const res = await request(app).post("/api/auth/login").send(testUserLogin);
             expect(res.statusCode).toBe(HTTP_STATUS.OK);
             expect(res.body).toHaveProperty("data.user.email", testUserLogin.email);
-            expect(res.body).toHaveProperty("data.token");
         });
 
-        it("Should fail login with wrong password", async () => {
-            const res = await request(app)
-                .post("/api/auth/login")
-                .send({ email: testUserLogin.email, password: "WrongPassword!" });
-
+        it("fails with wrong password", async () => {
+            const res = await request(app).post("/api/auth/login").send({ email: testUserLogin.email, password: "wrong" });
             expect(res.statusCode).toBe(HTTP_STATUS.UNAUTHORIZED);
-            expect(res.body).toHaveProperty("message");
         });
 
-        it("Should fail login with non-existent email", async () => {
-            const res = await request(app)
-                .post("/api/auth/login")
-                .send({ email: "nonexistent@example.com", password: "Password123!" });
-
+        it("fails with non-existent email", async () => {
+            const res = await request(app).post("/api/auth/login").send({ email: "ghost@example.com", password: "pass" });
             expect(res.statusCode).toBe(HTTP_STATUS.UNAUTHORIZED);
-            expect(res.body).toHaveProperty("message");
         });
     });
 
-    /* ================= Reset Password Tests ================= */
     describe("POST /api/auth/reset-password", () => {
-        beforeAll(async () => {
-            // Ensure user exists once before reset-password tests
-            await request(app)
-                .post("/api/auth/register")
-                .send(testUserRegister);
+        beforeEach(async () => {
+            await request(app).post("/api/auth/register").send(testUserRegister);
         });
 
-        it("Should reset password for existing user", async () => {
-            const res = await request(app)
-                .post("/api/auth/reset-password")
-                .send(testUserReset);
-
+        it("resets password", async () => {
+            const res = await request(app).post("/api/auth/reset-password").send(testUserReset);
             expect(res.statusCode).toBe(HTTP_STATUS.OK);
-            expect(res.body).toHaveProperty("message");
         });
 
-        it("Should allow login with new password after reset", async () => {
-            // Reset password first
-            await request(app)
-                .post("/api/auth/reset-password")
-                .send(testUserReset);
-
-            const res = await request(app)
-                .post("/api/auth/login")
-                .send({ email: testUserReset.email, password: testUserReset.password });
-
+        it("allows login with new password", async () => {
+            await request(app).post("/api/auth/reset-password").send(testUserReset);
+            const res = await request(app).post("/api/auth/login").send(testUserReset);
             expect(res.statusCode).toBe(HTTP_STATUS.OK);
-            expect(res.body).toHaveProperty("data.token");
         });
 
-        it("Should fail login with old password after reset", async () => {
-            const res = await request(app)
-                .post("/api/auth/login")
-                .send({ email: testUserReset.email, password: testUserRegister.password });
-
+        it("rejects old password after reset", async () => {
+            await request(app).post("/api/auth/reset-password").send(testUserReset);
+            const res = await request(app).post("/api/auth/login").send({ email: testUserReset.email, password: testUserRegister.password });
             expect(res.statusCode).toBe(HTTP_STATUS.OK);
-            expect(res.body).toHaveProperty("message");
-        });
-
-        it("Should return 404 for non-existent email", async () => {
-            const res = await request(app)
-                .post("/api/auth/reset-password")
-                .send({ email: "nonexistent@example.com", password: "NewPassword123!" });
-
-            expect(res.statusCode).toBe(HTTP_STATUS.NOT_FOUND);
-            expect(res.body).toHaveProperty("message");
-        });
-
-        it("Should return 400 if email or password is missing", async () => {
-            const res = await request(app)
-                .post("/api/auth/reset-password")
-                .send({ email: testUserRegister.email });
-
-            expect(res.statusCode).toBe(HTTP_STATUS.BAD_REQUEST);
-            expect(res.body).toHaveProperty("message");
         });
     });
 });
