@@ -5,13 +5,13 @@
  * @param {Object} options - Options for response
  * @param {number} [options.statusCode=200] - HTTP status code
  * @param {string} [options.message='Success'] - Success message
- * @param {Object} [options.data={}] - Data to send in response
+ * @param {*} [options.data=null] - Data to send in response
  */
-const successResponse = (res, { statusCode = 200, message = "Success", data = {} }) => {
+const successResponse = (res, { statusCode = 200, message = "Success", data = null }) => {
     return res.status(statusCode).json({
         success: true,
-        message,
-        data,
+        message: message || "Success",
+        data: data !== undefined ? data : null,
     });
 };
 
@@ -22,13 +22,13 @@ const successResponse = (res, { statusCode = 200, message = "Success", data = {}
  * @param {Object} options - Options for response
  * @param {number} [options.statusCode=500] - HTTP status code
  * @param {string} [options.message='Something went wrong'] - Error message
- * @param {Object} [options.errors={}] - Optional detailed error object
+ * @param {*} [options.errors=null] - Optional detailed error object
  */
-const errorResponse = (res, { statusCode = 500, message = "Something went wrong", errors = {} }) => {
+const errorResponse = (res, { statusCode = 500, message = "Something went wrong", errors = null }) => {
     return res.status(statusCode).json({
         success: false,
-        message,
-        errors,
+        message: message || "Something went wrong",
+        errors: errors !== undefined ? errors : null,
     });
 };
 

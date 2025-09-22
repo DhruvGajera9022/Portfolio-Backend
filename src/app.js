@@ -13,6 +13,7 @@ const { HTTP_STATUS } = require("../shared/constants")
 
 const authRoutes = require("./routes/auth.route");
 const profileRoutes = require("./routes/profile.route");
+const skillsRoutes = require("./routes/skills.route");
 
 
 const app = express();
@@ -44,6 +45,7 @@ app.get("/", (req, res) => res.send("API Running"));
 // ------------------- ROUTES ------------------- //
 app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/skills", skillsRoutes);
 
 // Setup Swagger
 setupSwagger(app);

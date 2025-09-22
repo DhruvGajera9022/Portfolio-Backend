@@ -16,3 +16,13 @@ afterAll(async () => {
     await mongoose.connection.dropDatabase();
     await mongoose.connection.close();
 });
+
+// Helper to clear DB between test groups
+const clearDB = async () => {
+    const collections = await mongoose.connection.db.collections();
+    for (let collection of collections) {
+        await collection.deleteMany({});
+    }
+};
+
+module.exports = { clearDB };
