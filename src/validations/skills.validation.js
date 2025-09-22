@@ -78,6 +78,4 @@ const skillSchema = Joi.object({
     isActive: Joi.boolean().optional(),
 });
 
-module.exports = {
-    skillSchema,
-};
+module.exports = skillSchema

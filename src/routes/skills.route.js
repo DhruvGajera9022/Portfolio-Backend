@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const validateRequest = require("../middleware/validation.middleware");
 const skillsController = require("../controllers/skills.controller");
-const { skillSchema } = require("../validations/skills.validation");
+const skillSchema = require("../validations/skills.validation");
 const authMiddleware = require("../middleware/auth.middleware"); // Auth protection
 
 /**

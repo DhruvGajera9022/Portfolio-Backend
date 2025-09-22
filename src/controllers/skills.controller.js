@@ -1,4 +1,4 @@
-const Skill = require("../models/skill.model");
+const Skill = require("../models/Skill.model");
 const logger = require("../utils/logger.util");
 const { successResponse, errorResponse } = require("../utils/response.util");
 const { HTTP_STATUS, MESSAGES } = require("../../shared/constants");
