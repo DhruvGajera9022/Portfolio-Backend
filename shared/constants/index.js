@@ -42,6 +42,14 @@ const MESSAGES = {
     SKILL_UPDATE_SUCCESS: "Skill updated successfully",
     SKILL_DELETE_SUCCESS: "Skill deleted successfully",
     SKILL_NOT_FOUND: "Skill not found",
+
+    // Contact
+    CONTACT_CREATED_SUCCESS: "Contact created successfully",
+    CONTACTS_FETCH_SUCCESS: "Contacts fetched successfully",
+    CONTACT_FETCH_SUCCESS: "Contact fetched successfully",
+    CONTACT_UPDATE_SUCCESS: "Contact updated successfully",
+    CONTACT_DELETE_SUCCESS: "Contact deleted successfully",
+    CONTACT_NOT_FOUND: "Contact not found",
 };
 
 /**
