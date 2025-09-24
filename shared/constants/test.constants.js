@@ -34,7 +34,7 @@ exports.testUserReset = {
 };
 
 
-const testSkill = {
+exports.skillsTestData = {
     name: "React.js",
     category: "Frontend",
     subcategory: "UI Framework",
@@ -70,6 +70,50 @@ const testSkill = {
     isActive: true,
 };
 
-exports.skillsTestData = {
-    ...testSkill
+const experienceData = {
+    jobTitle: "Senior Software Engineer",
+    company: "Tech Solutions Ltd",
+    companyUrl: "https://www.techsolutions.com",
+    employmentType: "Full-time",
+    workMode: "Remote",
+    location: {
+        city: "San Francisco",
+        state: "California",
+        country: "USA"
+    },
+    startDate: "2022-05-01T00:00:00.000Z",
+    endDate: null,
+    isCurrent: true,
+    description: "Worked on building scalable web applications and APIs using Node.js and React.",
+    responsibilities: [
+        "Develop and maintain RESTful APIs",
+        "Collaborate with frontend team to integrate APIs"
+    ],
+    achievements: [
+        "Improved API response time by 40%",
+        "Mentored 3 junior developers"
+    ],
+    technologies: ["Node.js", "Express", "MongoDB", "React", "Docker"],
+    projects: [
+        {
+            name: "Internal Dashboard",
+            description: "Built a dashboard for internal analytics and monitoring.",
+            technologies: ["React", "Chart.js", "Node.js"],
+            url: "https://dashboard.techsolutions.com"
+        }
+    ],
+    featured: true,
+    displayOrder: 1
+}
+
+exports.experiencesTestData = {
+    ...experienceData
+};
+
+exports.experienceUpdateData = {
+    jobTitle: experienceData.jobTitle,
+    company: experienceData.company,
+    employmentType: experienceData.employmentType,
+    description: experienceData.description,
+    startDate: experienceData.startDate
 }

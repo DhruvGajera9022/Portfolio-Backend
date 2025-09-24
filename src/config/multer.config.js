@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === "test" || process.env.CI) {
     storage = multer.memoryStorage();
 } else {
     // Local / production → write to uploads/
-    const uploadDir = path.join(__dirname, "../uploads");
+    const uploadDir = path.join(__dirname, "../../uploads");
     if (!fs.existsSync(uploadDir)) {
         fs.mkdirSync(uploadDir, { recursive: true });
     }

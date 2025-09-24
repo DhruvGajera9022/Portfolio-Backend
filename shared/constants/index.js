@@ -50,6 +50,15 @@ const MESSAGES = {
     CONTACT_UPDATE_SUCCESS: "Contact updated successfully",
     CONTACT_DELETE_SUCCESS: "Contact deleted successfully",
     CONTACT_NOT_FOUND: "Contact not found",
+
+    // Experience
+    EXPERIENCE_CREATED_SUCCESS: "Experience created successfully",
+    EXPERIENCES_FETCH_SUCCESS: "Experiences fetched successfully",
+    EXPERIENCE_FETCH_SUCCESS: "Experience fetched successfully",
+    EXPERIENCE_UPDATE_SUCCESS: "Experience updated successfully",
+    EXPERIENCE_DELETE_SUCCESS: "Experience deleted successfully",
+    EXPERIENCE_DUPLICATE: "Experience with same title and company already exists",
+    EXPERIENCE_NOT_FOUND: "Experience not found",
 };
 
 /**
