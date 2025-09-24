@@ -59,6 +59,15 @@ const MESSAGES = {
     EXPERIENCE_DELETE_SUCCESS: "Experience deleted successfully",
     EXPERIENCE_DUPLICATE: "Experience with same title and company already exists",
     EXPERIENCE_NOT_FOUND: "Experience not found",
+
+    // Projects
+    PROJECTS_FETCH_SUCCESS: "Projects fetched successfully",
+    PROJECT_FETCH_SUCCESS: "Project fetched successfully",
+    PROJECT_CREATE_SUCCESS: "Project created successfully",
+    PROJECT_UPDATE_SUCCESS: "Project updated successfully",
+    PROJECT_DELETE_SUCCESS: "Project deleted successfully",
+    PROJECT_NOT_FOUND: "Project not found",
+    PROJECT_DUPLICATE: "Project with same title already exists",
 };
 
 /**

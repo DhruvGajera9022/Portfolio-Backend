@@ -1,3 +1,4 @@
+// User related test data
 const userData = {
     firstName: "John",
     lastName: "Doe",
@@ -14,7 +15,7 @@ const userData = {
     bio: "This is developer bio"
 }
 
-
+// Test user register data
 exports.testUserRegister = {
     firstName: userData.firstName,
     lastName: userData.lastName,
@@ -23,17 +24,20 @@ exports.testUserRegister = {
     role: userData.role
 };
 
+// Test user login data
 exports.testUserLogin = {
     email: userData.email,
     password: userData.password,
 };
 
+// Test user reset password data
 exports.testUserReset = {
     email: userData.email,
     password: userData.password,
 };
 
 
+// Test user's skills data
 exports.skillsTestData = {
     name: "React.js",
     category: "Frontend",
@@ -70,6 +74,7 @@ exports.skillsTestData = {
     isActive: true,
 };
 
+// Test user's experience data
 const experienceData = {
     jobTitle: "Senior Software Engineer",
     company: "Tech Solutions Ltd",
@@ -106,14 +111,85 @@ const experienceData = {
     displayOrder: 1
 }
 
+// Exporting experience test data
 exports.experiencesTestData = {
     ...experienceData
 };
 
+// Exporting experience test data for update (excluding endDate and isCurrent)
 exports.experienceUpdateData = {
     jobTitle: experienceData.jobTitle,
     company: experienceData.company,
     employmentType: experienceData.employmentType,
     description: experienceData.description,
     startDate: experienceData.startDate
+}
+
+
+// Test user's project data
+const projectData = {
+    title: "Personal Portfolio Website",
+    description: "A modern personal portfolio website showcasing my skills, projects, and contact information. Built with React, TailwindCSS, and Node.js backend.",
+    shortDescription: "A personal portfolio to showcase my work and skills.",
+    category: "Frontend",
+    subcategory: "Frontend",
+    technologies: ["React", "TailwindCSS", "Node.js", "MongoDB"],
+    images: [
+        {
+            url: "https://res.cloudinary.com/demo/image/upload/v1723456789/portfolio-home.png",
+            publicId: "portfolio-home",
+            alt: "Homepage screenshot",
+            caption: "Homepage view",
+            isPrimary: true
+        },
+        {
+            url: "https://res.cloudinary.com/demo/image/upload/v1723456789/portfolio-projects.png",
+            publicId: "portfolio-projects",
+            alt: "Projects page screenshot",
+            caption: "Projects showcase",
+            isPrimary: false
+        }
+    ],
+    liveUrl: "https://myportfolio.com",
+    githubUrl: "https://github.com/username/portfolio",
+    status: "completed",
+    featured: true,
+    priority: 1,
+    startDate: "2024-01-15T00:00:00.000Z",
+    completedAt: "2024-02-28T00:00:00.000Z",
+    challenges: [
+        {
+            title: "Responsive design",
+            description: "Ensuring mobile-first responsive UI",
+            solution: "Used TailwindCSS breakpoints and custom utilities"
+        },
+        {
+            title: "SEO optimization",
+            description: "Low Lighthouse SEO score initially",
+            solution: "Improved meta tags, added sitemap, and semantic HTML"
+        }
+    ],
+    features: [
+        "Dark mode support",
+        "Contact form with email integration",
+        "Animated project cards"
+    ],
+    learnings: [
+        "Improved TailwindCSS workflow",
+        "Better understanding of SEO practices",
+        "Experience with deploying on Vercel"
+    ],
+    isPublic: true
+}
+
+// Exporting project test data
+exports.projectsTestData = {
+    ...projectData
+}
+
+// Test project update data
+exports.projectUpdateData = {
+    title: projectData.title,
+    description: projectData.description,
+    category: projectData.category,
 }
