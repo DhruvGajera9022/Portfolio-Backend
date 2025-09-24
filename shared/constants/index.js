@@ -68,6 +68,15 @@ const MESSAGES = {
     PROJECT_DELETE_SUCCESS: "Project deleted successfully",
     PROJECT_NOT_FOUND: "Project not found",
     PROJECT_DUPLICATE: "Project with same title already exists",
+
+    // Education
+    EDUCATION_FETCH_SUCCESS: "Education fetched successfully",
+    EDUCATIONS_FETCH_SUCCESS: "Educations fetched successfully",
+    EDUCATION_CREATE_SUCCESS: "Education created successfully",
+    EDUCATION_UPDATE_SUCCESS: "Education updated successfully",
+    EDUCATION_DELETE_SUCCESS: "Education deleted successfully",
+    EDUCATION_DUPLICATE: "Education entry already exists",
+    EDUCATION_NOT_FOUND: "Education not found",
 };
 
 /**

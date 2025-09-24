@@ -74,6 +74,7 @@ exports.skillsTestData = {
     isActive: true,
 };
 
+
 // Test user's experience data
 const experienceData = {
     jobTitle: "Senior Software Engineer",
@@ -192,4 +193,45 @@ exports.projectUpdateData = {
     title: projectData.title,
     description: projectData.description,
     category: projectData.category,
+}
+
+
+// Test user's education data
+const educationData = {
+    institution: "University of Example",
+    degree: "Bachelor of Computer Applications",
+    fieldOfStudy: "Information Technology",
+    startDate: "2021-08-01",
+    endDate: "2024-05-30",
+    grade: "8.5/10",
+    description: "Completed my Bachelor's degree with a focus on backend development and database management.",
+    status: "completed",
+    link: "https://www.universityofexample.edu",
+    certificates: [
+        {
+            title: "Full Stack Web Development",
+            url: "https://example.com/certificates/fullstack",
+            issuedBy: "Coursera",
+            issueDate: "2023-04-15"
+        },
+        {
+            title: "Advanced Node.js",
+            url: "https://example.com/certificates/nodejs",
+            issuedBy: "Udemy",
+            issueDate: "2023-09-01"
+        }
+    ]
+}
+
+// Exporting education test data
+exports.educationTestData = {
+    ...educationData
+};
+
+// Exporting education test data for update (excluding endDate and status)
+exports.educationUpdateData = {
+    institution: educationData.institution,
+    degree: educationData.degree,
+    fieldOfStudy: educationData.fieldOfStudy,
+    startDate: educationData.startDate,
 }
