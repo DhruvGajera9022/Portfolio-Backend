@@ -17,6 +17,7 @@ const skillsRoutes = require("./routes/skills.route");
 const contactRoutes = require("./routes/contact.route");
 const experienceRoutes = require("./routes/experience.route");
 const projectsRoutes = require("./routes/projects.route");
+const educationRoutes = require("./routes/education.route");
 
 
 const app = express();
@@ -52,6 +53,7 @@ app.use("/api/skills", skillsRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/experience", experienceRoutes);
 app.use("/api/project", projectsRoutes);
+app.use("/api/education", educationRoutes);
 
 // Setup Swagger
 setupSwagger(app);
