@@ -1,6 +1,6 @@
 # Portfolio Backend API
 
-A comprehensive RESTful API for managing portfolio data including authentication, profile management, skills, projects, experience, and contact information. Built with **Node.js**, **Express.js**, and **MongoDB**, this API includes features like **file uploads**, **rate limiting**, **JWT authentication**, and **Swagger documentation**.
+A comprehensive RESTful API for managing portfolio data including authentication, profile management, skills, projects, experience, education, and contact information. Built with **Node.js**, **Express.js**, and **MongoDB**, this API includes features like **file uploads**, **rate limiting**, **JWT authentication**, and **Swagger documentation**.
 
 [![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Express.js](https://img.shields.io/badge/Express.js-000000?style=flat&logo=express&logoColor=white)](https://expressjs.com/)
@@ -16,6 +16,7 @@ A comprehensive RESTful API for managing portfolio data including authentication
 - **Skills Management**: Complete CRUD operations for skills
 - **Projects Portfolio**: Manage projects with multiple image uploads
 - **Experience Tracking**: Professional experience with company logos and images
+- **Education History**: Manage education records with degree, institution, years, and certificate uploads
 - **Contact Form**: Handle contact form submissions
 - **Security**: Rate limiting, CORS protection, and security headers via Helmet
 - **Documentation**: Auto-generated Swagger API documentation
@@ -164,7 +165,7 @@ http://localhost:5000/api
 
 | Method | Endpoint | Description                         | Access  |
 | ------ | -------- | ----------------------------------- | ------- |
-| GET    | `/`      | Get current user profile            | Private |
+| GET    | `/`      | Get current user profile            | Public  |
 | PUT    | `/`      | Update profile (with avatar/resume) | Private |
 
 ### Skills Routes (`/api/skills`)
@@ -189,13 +190,23 @@ http://localhost:5000/api
 
 ### Experience Routes (`/api/experience`)
 
-| Method | Endpoint | Description                | Access        |
-| ------ | -------- | -------------------------- | ------------- |
-| GET    | `/`      | Get all experiences        | Public        |
-| GET    | `/:id`   | Get experience by ID       | Public        |
-| POST   | `/`      | Create new experience      | Auth Optional |
-| PUT    | `/:id`   | Update existing experience | Auth Optional |
-| DELETE | `/:id`   | Delete an experience       | Auth Optional |
+| Method | Endpoint | Description                | Access |
+| ------ | -------- | -------------------------- | ------ |
+| GET    | `/`      | Get all experiences        | Public |
+| GET    | `/:id`   | Get experience by ID       | Public |
+| POST   | `/`      | Create new experience      | Admin  |
+| PUT    | `/:id`   | Update existing experience | Admin  |
+| DELETE | `/:id`   | Delete an experience       | Admin  |
+
+### Education Routes (`/api/education`)
+
+| Method | Endpoint | Description               | Access |
+| ------ | -------- | ------------------------- | ------ |
+| GET    | `/`      | Get all educations        | Public |
+| GET    | `/:id`   | Get education by ID       | Public |
+| POST   | `/`      | Create new education      | Admin  |
+| PUT    | `/:id`   | Update existing education | Admin  |
+| DELETE | `/:id`   | Delete an education       | Admin  |
 
 ### Contact Routes (`/api/contact`)
 
