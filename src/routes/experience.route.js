@@ -12,6 +12,7 @@ const upload = require("../config/multer.config");
  */
 router.post(
     "/",
+    upload.fields([{ name: "companyLogo", maxCount: 10 }, { name: "images", maxCount: 10 }]),
     validateRequest(experienceSchema),
     experienceController.createExperience
 );
