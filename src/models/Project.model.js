@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { PROJECT_CATEGORY, PROJECT_STATUS } = require("../enums/project.enum");
+const slugify = require("slugify");
 
 /**
  * Project Schema
@@ -125,5 +126,12 @@ const projectSchema = new mongoose.Schema(
         timestamps: true,
     }
 );
+
+projectSchema.pre("save", function (next) {
+    if (!this.slug && this.title) {
+        this.slug = slugify(this.title, { lower: true, strict: true });
+    }
+    next();
+});
 
 module.exports = mongoose.model("Projects", projectSchema);
