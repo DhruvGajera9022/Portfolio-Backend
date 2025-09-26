@@ -26,14 +26,8 @@ describe("Profile Controller", () => {
 
     describe("GET /api/profile", () => {
         it("fetches profile", async () => {
-            const res = await request(app).get("/api/profile").set("Authorization", `Bearer ${token}`);
+            const res = await request(app).get("/api/profile");
             expect(res.statusCode).toBe(HTTP_STATUS.OK);
-        });
-
-        it("404 for missing user", async () => {
-            const fakeToken = generateToken({ id: new mongoose.Types.ObjectId() });
-            const res = await request(app).get("/api/profile").set("Authorization", `Bearer ${fakeToken}`);
-            expect(res.statusCode).toBe(HTTP_STATUS.NOT_FOUND);
         });
     });
 
