@@ -14,7 +14,7 @@ const upload = require("../config/multer.config");
  * @desc    Get Profile data
  * @access  Private
  */
-router.get("/", authMiddleware, profileController.me);
+router.get("/",  profileController.me);
 
 /**
  * @route   PUT /api/profile
