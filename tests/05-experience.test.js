@@ -7,12 +7,6 @@ const { clearDB } = require("./testSetup");
 
 require("./testSetup");
 
-jest.mock('../src/config/cloudinary.config.js', () => ({
-    uploader: {
-        destroy: jest.fn().mockResolvedValue({ result: 'ok' }),
-    },
-}));
-
 
 describe("Experience Controller", () => {
     let token, experienceId;

@@ -3,7 +3,6 @@ const router = express.Router();
 const validateRequest = require("../middleware/validation.middleware");
 const experienceController = require("../controllers/experience.controller");
 const { experienceSchema } = require("../validations/experience.validation");
-const upload = require("../config/multer.config");
 
 /**
  * @route   POST /api/experience
@@ -12,7 +11,6 @@ const upload = require("../config/multer.config");
  */
 router.post(
     "/",
-    upload.fields([{ name: "companyLogo", maxCount: 10 }, { name: "images", maxCount: 10 }]),
     validateRequest(experienceSchema),
     experienceController.createExperience
 );
@@ -38,7 +36,6 @@ router.get("/:id", experienceController.getExperienceById);
  */
 router.put(
     "/:id",
-    upload.fields([{ name: "companyLogo", maxCount: 10 }, { name: "images", maxCount: 10 }]),
     validateRequest(experienceSchema),
     experienceController.updateExperience
 );
