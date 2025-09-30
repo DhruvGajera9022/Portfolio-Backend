@@ -2,18 +2,6 @@ const mongoose = require("mongoose");
 const { SkillCategory, SkillLevel, ResourceType } = require("../enums/skill.enum");
 
 /**
- * Icon schema for skill
- */
-const IconSchema = new mongoose.Schema(
-    {
-        url: { type: String },
-        publicId: { type: String },
-        svg: { type: String },
-    },
-    { _id: false }
-);
-
-/**
  * Certification schema
  */
 const CertificationSchema = new mongoose.Schema(
@@ -78,7 +66,7 @@ const SkillSchema = new mongoose.Schema(
             enum: Object.values(SkillLevel),
             default: SkillLevel.BEGINNER,
         },
-        icon: IconSchema,
+
         color: {
             type: String,
             match: /^#[0-9A-Fa-f]{6}$/,

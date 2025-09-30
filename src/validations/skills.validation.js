@@ -35,11 +35,6 @@ const skillSchema = Joi.object({
         .messages({
             "any.only": `Level must be one of: ${Object.values(SkillLevel).join(", ")}`,
         }),
-    icon: Joi.object({
-        url: Joi.string().uri().optional(),
-        publicId: Joi.string().optional(),
-        svg: Joi.string().optional(),
-    }).optional(),
     color: Joi.string()
         .pattern(/^#[0-9A-Fa-f]{6}$/)
         .optional()
