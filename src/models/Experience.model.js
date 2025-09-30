@@ -22,10 +22,6 @@ const experienceSchema = new mongoose.Schema(
             type: String,
             match: [/^https?:\/\/.+/, "Please enter a valid URL"],
         },
-        companyLogo: {
-            url: String,
-            publicId: String,
-        },
         employmentType: {
             type: String,
             required: [true, "Employment type is required"],
@@ -72,13 +68,6 @@ const experienceSchema = new mongoose.Schema(
                 description: String,
                 technologies: [String],
                 url: String,
-            },
-        ],
-        images: [
-            {
-                url: String,
-                publicId: String,
-                caption: String,
             },
         ],
         featured: {

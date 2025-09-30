@@ -45,11 +45,6 @@ exports.skillsTestData = {
     proficiency: 85,
     yearsOfExperience: 3,
     level: "Intermediate",
-    icon: {
-        url: "https://example.com/react-icon.png",
-        publicId: "react-icon-123",
-        svg: "<svg>...</svg>"
-    },
     color: "#61DAFB",
     description: "React.js skill for building UIs",
     projects: ["64f8e8b5f6d1c2a1b0d9f123"],

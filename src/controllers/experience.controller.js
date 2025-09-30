@@ -3,7 +3,6 @@ const { experienceSchema } = require("../validations/experience.validation");
 const { HTTP_STATUS, MESSAGES } = require("../../shared/constants");
 const { successResponse, errorResponse } = require("../utils/response.util");
 const logger = require("../utils/logger.util");
-const { uploadFile, deleteFile } = require("../utils/cloudinaryService.util");
 
 
 /**
@@ -42,19 +41,6 @@ exports.createExperience = async (req, res) => {
                     message: MESSAGES.EXPERIENCE_DUPLICATE
                 }
             );
-        }
-
-        // Handle image uploads (images array)
-        if (req.files?.images?.length > 0) {
-            value.images = [];
-            for (const file of req.files.images) {
-                const uploaded = await uploadFile(file.path, "uploads/experience-images");
-                value.images.push({
-                    url: uploaded.url,
-                    publicId: uploaded.publicId,
-                    caption: file.originalname,
-                });
-            }
         }
 
         const experience = await Experience.create(value);
@@ -141,38 +127,6 @@ exports.updateExperience = async (req, res) => {
             return errorResponse(res, { statusCode: HTTP_STATUS.NOT_FOUND, message: MESSAGES.EXPERIENCE_NOT_FOUND });
         }
 
-        // Handle company logo upload
-        if (req.files?.companyLogo?.length > 0) {
-            // Delete old logo if exists
-            if (experience.companyLogo?.publicId) {
-                await deleteFile(experience.companyLogo.publicId);
-            }
-
-            const file = req.files.companyLogo[0];
-            const uploaded = await uploadFile(file.path, "company-logos");
-            value.companyLogo = { url: uploaded.url, publicId: uploaded.publicId };
-        }
-
-        // Handle experience images upload
-        if (req.files?.images?.length > 0) {
-            // Delete old images if exist
-            if (experience.images?.length > 0) {
-                for (const img of experience.images) {
-                    if (img.publicId) await deleteFile(img.publicId);
-                }
-            }
-
-            value.images = [];
-            for (const file of req.files.images) {
-                const uploaded = await uploadFile(file.path, "experience-images");
-                value.images.push({
-                    url: uploaded.url,
-                    publicId: uploaded.publicId,
-                    caption: file.originalname,
-                });
-            }
-        }
-
         // Update experience
         const updatedExperience = await Experience.findByIdAndUpdate(id, value, { new: true, runValidators: true });
 
@@ -202,11 +156,6 @@ exports.deleteExperience = async (req, res) => {
         if (!experience) {
             logger.warn(`[DELETE EXPERIENCE] ${MESSAGES.EXPERIENCE_NOT_FOUND}: ID ${id}`);
             return errorResponse(res, { statusCode: HTTP_STATUS.NOT_FOUND, message: MESSAGES.EXPERIENCE_NOT_FOUND });
-        }
-
-        await deleteFile(experience.companyLogo?.publicId);
-        for (const img of experience.images || []) {
-            await deleteFile(img.publicId);
         }
 
         logger.info(`[DELETE EXPERIENCE] Experience deleted: ID ${id}`);

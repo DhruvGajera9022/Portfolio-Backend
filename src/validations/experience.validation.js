@@ -15,10 +15,6 @@ const experienceSchema = Joi.object({
     companyUrl: Joi.string().uri().optional().messages({
         "string.uri": "Please provide a valid company URL",
     }),
-    companyLogo: Joi.object({
-        url: Joi.string().optional(),
-        publicId: Joi.string().optional(),
-    }).optional(),
     employmentType: Joi.string()
         .valid("Full-time", "Part-time", "Contract", "Freelance", "Internship")
         .required()
